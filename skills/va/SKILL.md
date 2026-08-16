@@ -39,8 +39,18 @@ ALWAYS redirect output to a file (it is long and gets truncated otherwise), then
 
 - Accepts YouTube URLs (direct, no download), **any other platform URL** (yt-dlp download ≤720p → Files API upload) and **local files** up to 2 GB (upload).
 - Key: `GEMINI_API_KEY` env var or `~/.config/va/env` (line `GEMINI_API_KEY=...`).
-  Get one free at https://aistudio.google.com/apikey — no key? Run Pass 1 only and tell
-  the user what the key would unlock (visuals, audio, OCR).
+- **First-run onboarding (no key found):** run Pass 1 anyway, then offer the guided setup —
+  do NOT just error out:
+  1. Tell the user what the key unlocks (visuals, audio, on-screen OCR) and that it is free.
+  2. Walk them through it: open https://aistudio.google.com/apikey → sign in with any
+     Google account → "Create API key" (the auto-suggested project is fine, no billing).
+  3. Ask them to paste the key in chat (or into the file themselves if they prefer),
+     then write it for them: `mkdir -p ~/.config/va && echo 'GEMINI_API_KEY=<key>' >
+     ~/.config/va/env && chmod 600 ~/.config/va/env` — never store it anywhere else,
+     never echo it back.
+  4. Mention once, honestly: on the free tier Google may use inputs for training —
+     fine for public YouTube videos, not for confidential footage (paid tier for that).
+  5. Verify with a quick Pass-2 call, then continue the original request.
 - Model override as 3rd argument. Default cascade handles "high demand" and daily quotas
   automatically (retries + model fallback).
 - YouTube: **public videos only** (unlisted/private → obtain the file and pass a local path).

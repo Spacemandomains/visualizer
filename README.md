@@ -23,7 +23,15 @@ Looking for a **claude-video alternative**? Honest comparison — Brad's `/watch
 | Cost | Claude tokens per frame | Gemini free tier: **8h YouTube/day**; paid ~$0.05–0.15 per 30-min video |
 | Platforms | 1,600+ via yt-dlp | YouTube direct + 100+ via yt-dlp + local files |
 
-## Install (Claude Code)
+## Install — the lazy way (recommended)
+
+Paste this into Claude Code (or Claude Desktop with Cowork):
+
+> https://github.com/TomSchoe/visualizer — install this plugin and everything it needs so you can watch videos from now on. Then help me set up the free Gemini key.
+
+Claude installs the plugin, the dependencies, and walks you through the key setup interactively.
+
+**Manual install (Claude Code):**
 
 ```bash
 /plugin marketplace add TomSchoe/visualizer
@@ -71,6 +79,13 @@ Analysis modes (picked automatically by video type):
 - **render-qa** — AI-generated videos: identity/continuity/artifact inspection
 
 Plus frame extraction (`FRAME:` moments → JPGs) for notes with real images.
+
+## When claude-video might suit you better (honest trade-offs)
+
+- **You refuse a Google account/key**: `/watch` analyzes caption-videos with zero keys and frames; our keyless mode is transcript-only (no visuals).
+- **Privacy**: Pass 2 sends the video to Google's API — and on the **free tier Google may use inputs for training**. Don't run confidential footage through it (use the paid tier or a local-frames tool for that).
+- **Unlisted/private YouTube links**: `/watch` downloads them; our YouTube-direct path needs public videos (workaround: download, pass the file).
+- **Maturity**: `/watch` has 15k+ stars and months of battle-testing; this project is younger.
 
 ## Honest limitations
 

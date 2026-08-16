@@ -23,7 +23,15 @@ Auf der Suche nach einer **claude-video-Alternative**? Ehrlicher Vergleich — B
 | Kosten | Claude-Tokens pro Frame | Gemini Free Tier: **8 h YouTube/Tag**; bezahlt ~0,05–0,15 $ pro 30-min-Video |
 | Plattformen | 1.600+ via yt-dlp | YouTube direkt + 100+ via yt-dlp + lokale Dateien |
 
-## Installation (Claude Code)
+## Installation — der bequeme Weg (empfohlen)
+
+Das hier in Claude Code (oder Claude Desktop mit Cowork) einwerfen:
+
+> https://github.com/TomSchoe/visualizer — installiere dieses Plugin und alles, was dazugehört, damit du ab jetzt Videos verstehen kannst. Hilf mir danach beim kostenlosen Gemini-Key.
+
+Claude installiert Plugin und Abhängigkeiten und führt dich interaktiv durch die Key-Einrichtung.
+
+**Manuell (Claude Code):**
 
 ```bash
 /plugin marketplace add TomSchoe/visualizer
@@ -65,6 +73,13 @@ Einfach eine Video-URL einwerfen — der Skill triggert von selbst. Oder explizi
 ```
 
 Analyse-Modi (automatisch nach Videotyp gewählt): **talk-summary** (Talks/Tutorials) · **design-rebuild** (Design/UI, Hex-Farben, Code wörtlich) · **ad-teardown** (Werbung/UGC) · **render-qa** (KI-Renders auf Konsistenz prüfen). Dazu Frame-Extraktion für Notizen mit echten Bildern.
+
+## Wann claude-video besser zu dir passt (ehrliche Trade-offs)
+
+- **Du willst keinen Google-Account/Key**: `/watch` analysiert Caption-Videos ganz ohne Keys inkl. Frames; unser Key-loser Modus ist nur Transkript (ohne Bild).
+- **Datenschutz**: Pass 2 schickt das Video an Googles API — und im **Free Tier darf Google Eingaben fürs Training nutzen**. Vertrauliches Material gehört da nicht rein (dafür Paid Tier oder ein lokales Frame-Tool).
+- **Unlisted/private YouTube-Links**: `/watch` lädt sie herunter; unser YouTube-Direktpfad braucht öffentliche Videos (Workaround: Datei herunterladen und lokal übergeben).
+- **Reife**: `/watch` hat 15k+ Stars und Monate Praxis-Härtung; dieses Projekt ist jünger.
 
 ## Ehrliche Grenzen
 
