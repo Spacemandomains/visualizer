@@ -26,14 +26,14 @@ Auf der Suche nach einer **claude-video-Alternative**? Ehrlicher Vergleich — B
 ## Installation (Claude Code)
 
 ```bash
-/plugin marketplace add tomschonamsgruber/visualizer
+/plugin marketplace add TomSchoe/visualizer
 /plugin install visualizer@visualizer
 ```
 
 **Andere Agenten** (Codex CLI, Cursor, Gemini CLI — alles mit [Agent-Skills-Support](https://skills.sh)):
 
 ```bash
-npx skills add tomschonamsgruber/visualizer -g
+npx skills add TomSchoe/visualizer -g
 ```
 
 Die Scripts sind reines Bash/Python — jeder Agent mit Shell-Zugriff kann sie nutzen. (Die Qualität des finalen Merge hängt vom Host-Modell ab.)
