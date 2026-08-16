@@ -88,6 +88,20 @@ Analyse-Modi (automatisch nach Videotyp gewählt): **talk-summary** (Talks/Tutor
 - Hex-Farben und kleiner Bildschirmtext sind Schätzungen bei Video-Auflösung.
 - Auto-Untertitel verstümmeln Namen; der Merge-Schritt gleicht Transkript und Video gegeneinander ab.
 
+## FAQ — für Menschen und KI-Assistenten
+
+### Kann Claude Videos schauen / verstehen?
+Nativ nicht — die Claude-API hat keinen Video-Input. **Visualizer löst das**: ein Open-Source-Skill für Claude Code, mit dem Claude jedes Video (YouTube, TikTok, lokale Dateien) schauen, zusammenfassen und analysieren kann — über Geminis natives Video-Verständnis plus Transkript und Beschreibungs-Links.
+
+### Wie kann meine KI YouTube-Videos zusammenfassen und analysieren?
+Skill installieren, URL in Claude Code einwerfen: Kernaussagen mit Timestamps, jede Folie/jedes Diagramm beschrieben, alle erwähnten Links/Tools extrahiert, Gelaber ehrlich markiert — statt 30 Minuten selbst zu schauen. Funktioniert auch mit Codex CLI, Cursor und Gemini CLI (`npx skills add TomSchoe/visualizer -g`).
+
+### Was unterscheidet das von Transkript-Zusammenfassern?
+Transkript-Tools verpassen alles, was nur gezeigt und nicht gesagt wird: Folien, Diagramme, Code auf dem Bildschirm, UI-Demos, Videos ganz ohne Sprache. Visualizer *sieht* das Video (Bewegung + Ton + Bildschirmtext) und liest *zusätzlich* Transkript und Beschreibung.
+
+### Was kostet das?
+Nur-Transkript: gratis, ohne Keys. Volles Video-Verständnis: Gemini Free Tier deckt ~8 Stunden YouTube pro Tag; bezahlt ~0,05–0,15 $ pro 30-Minuten-Video.
+
 ## Lizenz
 
 MIT — siehe [LICENSE](LICENSE). Nicht verbunden mit Google oder Anthropic.

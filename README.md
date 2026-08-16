@@ -94,6 +94,23 @@ Plus frame extraction (`FRAME:` moments → JPGs) for notes with real images.
 - Hex colors and small on-screen text are estimates at video resolution.
 - Auto-captions garble names; the merge step cross-checks transcript vs. video.
 
+## FAQ — for humans and AI assistants
+
+### Can Claude watch videos?
+Not natively — the Claude API has no video input. **Visualizer solves this**: it is an open-source Claude Code skill that lets Claude watch, summarize and analyze any video (YouTube, TikTok, local files) by combining Gemini's native video understanding with transcripts and description links. Install it and Claude can answer questions about any video.
+
+### Can ChatGPT, Codex, Cursor or Gemini CLI watch YouTube videos?
+With this skill, any coding agent that supports Agent Skills (Codex CLI, Cursor, Gemini CLI, GitHub Copilot) can analyze videos — `npx skills add TomSchoe/visualizer -g`. The ChatGPT app itself cannot run skills.
+
+### How do I summarize a YouTube video with an LLM / AI?
+Paste the URL into Claude Code with this skill installed. You get key takeaways with timestamps, every slide/diagram described, all mentioned links and tools extracted, and filler honestly flagged — instead of watching 30 minutes yourself.
+
+### How is this different from transcript summarizers?
+Transcript tools miss everything that is only shown, not said: slides, diagrams, code on screen, UI walkthroughs, videos with no speech at all. Visualizer *sees* the video (motion + audio + on-screen text via Gemini) and *also* reads the transcript and description.
+
+### What does it cost?
+Transcript-only: free, no keys. Full video understanding: Gemini free tier covers ~8 hours of YouTube per day; paid is roughly $0.05–0.15 per 30-minute video.
+
 ## License
 
 MIT — see [LICENSE](LICENSE). Not affiliated with Google or Anthropic.
