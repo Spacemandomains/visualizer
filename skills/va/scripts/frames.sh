@@ -4,6 +4,7 @@
 # usage: frames.sh <url-oder-datei> <outdir> <ts1> [ts2 ...]   (ts: SS, MM:SS oder H:MM:SS)
 # Das Video wird bei URLs einmalig nach <outdir>/.video.mp4 geladen und gecacht.
 set -euo pipefail
+PY=$(command -v python3 || command -v python)
 IN="$1"
 OUT="$2"
 shift 2
@@ -33,7 +34,7 @@ else
 fi
 
 for ts in "$@"; do
-  secs=$(python3 -c '
+  secs=$("$PY" -c '
 import sys
 s = 0.0
 for part in sys.argv[1].split(":"):

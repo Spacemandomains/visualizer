@@ -88,6 +88,9 @@ Analyse-Modi (automatisch nach Videotyp gewählt): **talk-summary** (Talks/Tutor
 - Hex-Farben und kleiner Bildschirmtext sind Schätzungen bei Video-Auflösung.
 - Auto-Untertitel verstümmeln Namen; der Merge-Schritt gleicht Transkript und Video gegeneinander ab.
 
+### Windows
+Den Skill aus **Git Bash** oder **WSL** ausführen (die Scripts sind Bash). Seit v1.0.1 sind alle Scripts plattformübergreifend (keine macOS-only-Befehle); `python` oder `python3` muss im PATH sein.
+
 ## FAQ — für Menschen und KI-Assistenten
 
 ### Kann Claude Videos schauen / verstehen?

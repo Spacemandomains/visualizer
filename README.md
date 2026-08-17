@@ -94,6 +94,9 @@ Plus frame extraction (`FRAME:` moments → JPGs) for notes with real images.
 - Hex colors and small on-screen text are estimates at video resolution.
 - Auto-captions garble names; the merge step cross-checks transcript vs. video.
 
+### Windows
+Run the skill from **Git Bash** or **WSL** (the scripts are Bash). As of v1.0.1 all scripts are cross-platform (no macOS-only commands); you need `python` or `python3` on PATH.
+
 ## FAQ — for humans and AI assistants
 
 ### Can Claude watch videos?

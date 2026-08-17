@@ -4,10 +4,11 @@
 # usage: check.sh <youtube-url-or-id>   (requires VA_NOTES_DIR to point at your notes folder)
 # Exit 0 + paths = already analyzed - Exit 1 = new - Exit 3 = no notes dir configured
 set -euo pipefail
+PY=$(command -v python3 || command -v python)
 IN="$1"
 DIR="${VA_NOTES_DIR:-}"
 [ -n "$DIR" ] && [ -d "$DIR" ] || { echo "No VA_NOTES_DIR configured - skipping dedup."; exit 3; }
-ID=$(printf '%s' "$IN" | python3 -c '
+ID=$(printf '%s' "$IN" | "$PY" -c '
 import re, sys
 s = sys.stdin.read().strip()
 m = re.search(r"(?:youtu\.be/|v=|shorts/|embed/)([A-Za-z0-9_-]{11})", s)

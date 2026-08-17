@@ -9,6 +9,8 @@ IN="$1"
 PROMPT="$2"
 MODEL="${3:-gemini-3.7-flash}"
 BASE="https://generativelanguage.googleapis.com"
+# Cross-platform: python3 heisst auf manchen Systemen (Git Bash/Windows) nur python
+PY=$(command -v python3 || command -v python)
 
 if [ -z "${GEMINI_API_KEY:-}" ] && [ -f "$HOME/.config/va/env" ]; then
   # shellcheck disable=SC1091
@@ -33,9 +35,13 @@ else
     FILE=$(find "$TMP" -name 'video.*' -type f | head -1)
     [ -n "$FILE" ] || { echo "FEHLER: Download fehlgeschlagen" >&2; exit 1; }
   fi
-  MIME=$(file -b --mime-type "$FILE")
+  if command -v file >/dev/null 2>&1; then
+    MIME=$(file -b --mime-type "$FILE")
+  else
+    case "$FILE" in *.webm) MIME="video/webm" ;; *.mov) MIME="video/quicktime" ;; *.mkv) MIME="video/x-matroska" ;; *.mp3) MIME="audio/mpeg" ;; *) MIME="video/mp4" ;; esac
+  fi
   case "$MIME" in video/*|audio/*) ;; *) MIME="video/mp4" ;; esac
-  NUM_BYTES=$(stat -f%z "$FILE")
+  NUM_BYTES=$(wc -c < "$FILE" | tr -d "[:space:]")
   echo ">> Upload zur Gemini Files API ($((NUM_BYTES / 1024 / 1024)) MB) ..." >&2
 
   UPLOAD_URL=""
@@ -62,13 +68,13 @@ else
     -H "X-Goog-Upload-Offset: 0" \
     -H "X-Goog-Upload-Command: upload, finalize" \
     --data-binary "@$FILE")
-  FILE_URI=$(printf '%s' "$INFO" | python3 -c 'import json,sys;print(json.load(sys.stdin)["file"]["uri"])')
-  FILE_NAME=$(printf '%s' "$INFO" | python3 -c 'import json,sys;print(json.load(sys.stdin)["file"]["name"])')
+  FILE_URI=$(printf '%s' "$INFO" | "$PY" -c 'import json,sys;print(json.load(sys.stdin)["file"]["uri"])')
+  FILE_NAME=$(printf '%s' "$INFO" | "$PY" -c 'import json,sys;print(json.load(sys.stdin)["file"]["name"])')
 
   echo ">> Warte auf Verarbeitung ..." >&2
   for _ in $(seq 1 120); do
     STATE=$(curl -sS "$BASE/v1beta/$FILE_NAME" -H "x-goog-api-key: $GEMINI_API_KEY" \
-      | python3 -c 'import json,sys;print(json.load(sys.stdin).get("state","?"))')
+      | "$PY" -c 'import json,sys;print(json.load(sys.stdin).get("state","?"))')
     [ "$STATE" = "ACTIVE" ] && break
     [ "$STATE" = "FAILED" ] && { echo "FEHLER: Gemini-Verarbeitung fehlgeschlagen" >&2; exit 1; }
     sleep 5
@@ -76,7 +82,7 @@ else
   [ "$STATE" = "ACTIVE" ] || { echo "FEHLER: Timeout beim Warten auf ACTIVE" >&2; exit 1; }
 fi
 
-BODY=$(python3 - "$FILE_URI" "$PROMPT" "$MIME" <<'PY'
+BODY=$("$PY" - "$FILE_URI" "$PROMPT" "$MIME" <<'PY'
 import json, sys
 uri, prompt, mime = sys.argv[1], sys.argv[2], sys.argv[3]
 fd = {"file_uri": uri}
@@ -95,7 +101,7 @@ try_model() {
     -H "x-goog-api-key: $GEMINI_API_KEY" \
     -H "Content-Type: application/json" \
     -d "$BODY" -o "$TMP/resp" || return 2
-  python3 - "$TMP/resp" <<'PY'
+  "$PY" - "$TMP/resp" <<'PY'
 import json, sys
 resp = json.load(open(sys.argv[1]))
 if "error" in resp:
