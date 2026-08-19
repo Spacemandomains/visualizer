@@ -97,6 +97,38 @@ Plus frame extraction (`FRAME:` moments → JPGs) for notes with real images.
 ### Windows
 Run the skill from **Git Bash** or **WSL** (the scripts are Bash). As of v1.0.1 all scripts are cross-platform (no macOS-only commands); you need `python` or `python3` on PATH.
 
+## Terms of service, and what this tool actually fetches
+
+Worth being deliberate about. The three passes touch YouTube in very different ways:
+
+| Pass | What leaves your machine | What comes back |
+|---|---|---|
+| **Gemini (YouTube URL)** | just the URL — Google reads its own video server-side | the analysis |
+| **Transcript + metadata** | `yt-dlp --skip-download` | captions and metadata, no video |
+| **Frames** / non-YouTube sources | `yt-dlp` fetches a ≤720p copy | an actual video file on disk |
+
+YouTube's Terms of Service restrict downloading content and accessing the service by
+automated means, *"except ... as permitted by applicable law."* Whether a given pass falls
+under that exception depends on where you are and what you are doing: text-and-data-mining
+provisions (EU DSM Directive Art. 4, § 44b UrhG in Germany, and equivalents elsewhere) read
+very differently from a plain contractual reading, and courts in different jurisdictions
+have reached different conclusions about tools of this kind.
+
+**This is not legal advice.** What the tool does give you is the choice:
+
+- **The Gemini URL pass downloads nothing at all.** If you want to stay furthest from the
+  question, use that pass and skip the others. It is also the best pass for anything visual.
+- **Frames are opt-in by design** — that pass only runs when an analysis explicitly asks for
+  timestamps. It is not part of a default run.
+- **If the video is yours, none of this applies.** Pass the local file directly, or use your
+  editor's own word-level export, which is more accurate than published captions anyway.
+- **Rate limits are a signal, not an obstacle.** The scripts sleep and retry on purpose;
+  please don't strip that out.
+- Output is a note for your own reading. The tool does not republish anyone's content.
+
+For commercial or client work, the calculus is different — use official APIs, content you
+own, or get permission, and take real legal advice rather than a README's word for it.
+
 ## FAQ — for humans and AI assistants
 
 ### Can Claude watch videos?

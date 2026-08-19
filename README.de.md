@@ -91,6 +91,42 @@ Analyse-Modi (automatisch nach Videotyp gewählt): **talk-summary** (Talks/Tutor
 ### Windows
 Den Skill aus **Git Bash** oder **WSL** ausführen (die Scripts sind Bash). Seit v1.0.1 sind alle Scripts plattformübergreifend (keine macOS-only-Befehle); `python` oder `python3` muss im PATH sein.
 
+## Nutzungsbedingungen — und was dieses Werkzeug wirklich abruft
+
+Lohnt sich bewusst zu entscheiden. Die drei Pässe berühren YouTube sehr unterschiedlich:
+
+| Pass | Was deinen Rechner verlässt | Was zurückkommt |
+|---|---|---|
+| **Gemini (YouTube-URL)** | nur die URL — Google liest sein eigenes Video serverseitig | die Analyse |
+| **Transkript + Metadaten** | `yt-dlp --skip-download` | Untertitel und Metadaten, kein Video |
+| **Frames** / Nicht-YouTube-Quellen | `yt-dlp` holt eine Kopie mit ≤720p | eine echte Videodatei auf der Platte |
+
+YouTubes Nutzungsbedingungen untersagen das Herunterladen von Inhalten und den
+automatisierten Zugriff auf den Dienst — *„ausgenommen … soweit durch anwendbares Recht
+gestattet."* Ob ein bestimmter Pass unter diese Ausnahme fällt, hängt von deinem Rechtsraum
+und deinem Zweck ab: Regelungen zum Text und Data Mining (EU-DSM-Richtlinie Art. 4,
+in Deutschland § 44b UrhG) lesen sich deutlich anders als die reine Vertragsklausel, und
+Gerichte verschiedener Länder sind bei Werkzeugen dieser Art zu unterschiedlichen
+Ergebnissen gekommen.
+
+**Das ist keine Rechtsberatung.** Was das Werkzeug dir gibt, ist die Wahl:
+
+- **Der Gemini-URL-Pass lädt überhaupt nichts herunter.** Wer der Frage am weitesten aus dem
+  Weg gehen will, nutzt nur ihn — er ist ohnehin der beste Pass für alles Visuelle.
+- **Frames sind bewusst opt-in**: Dieser Pass läuft nur, wenn eine Analyse ausdrücklich
+  Zeitmarken anfordert. Er gehört nicht zum Standardlauf.
+- **Bei eigenen Videos stellt sich die Frage nicht.** Die lokale Datei direkt übergeben — oder
+  den wortgenauen Export des eigenen Schnittprogramms nutzen, der ohnehin präziser ist als
+  veröffentlichte Untertitel.
+- **Drosselung ist ein Signal, kein Hindernis.** Die Skripte warten und wiederholen mit
+  Absicht; bitte nicht herausnehmen.
+- Das Ergebnis ist eine Notiz zum Selbstlesen. Das Werkzeug veröffentlicht keine fremden
+  Inhalte weiter.
+
+Bei kommerzieller Arbeit oder Kundenprojekten sieht die Rechnung anders aus — dann offizielle
+APIs, eigene Inhalte oder eine Genehmigung, und echte Rechtsberatung statt der Zusicherung
+einer README-Datei.
+
 ## FAQ — für Menschen und KI-Assistenten
 
 ### Kann Claude Videos schauen / verstehen?
