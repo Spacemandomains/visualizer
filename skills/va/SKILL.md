@@ -63,6 +63,26 @@ ALWAYS redirect output to a file (it is long and gets truncated otherwise), then
   Each mode ends by requesting a `FRAME: MM:SS — description` list (input for Pass 3).
 - For segments: prefix the prompt with `Analyze only MM:SS to MM:SS`.
 
+## Pass 2b (alternative) — Meta Model API as video eyes (Muse Spark)
+
+Use instead of Pass 2 when a Meta key is configured (or Gemini is
+unavailable). Gemini remains the default; nothing above changes.
+
+```bash
+<skill-dir>/scripts/meta_watch.sh "<URL-or-file>" "<prompt>" > "<outdir>/meta.md"
+```
+
+- Accepts a video URL (sent as `input_video` — Muse Spark reads video +
+  audio natively via the Responses API) and **local .mp4 files** (uploaded
+  via the Meta Files API, purpose `user_data`, then referenced by file_id).
+- Key: `MODEL_API_KEY` env var or `~/.config/va/env` (line
+  `MODEL_API_KEY=...`). Get a key at https://dev.meta.ai/ (API Keys in
+  your project). Never echo the key back.
+- Model override as 3rd argument. Default: `muse-spark-1.3`.
+  Base URL: `https://api.meta.ai/v1` (`META_BASE_URL` override).
+- Use the same analysis-mode prompts from `prompts/` as Pass 2, and
+  merge the result the same way.
+
 ## Pass 3 (optional) — frames as images
 
 ```bash
