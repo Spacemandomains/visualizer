@@ -149,3 +149,13 @@ Transcript-only: free, no keys. Full video understanding: Gemini free tier cover
 ## License
 
 MIT — see [LICENSE](LICENSE). Not affiliated with Google or Anthropic.
+
+## Alternative backend: Meta Model API (Muse Spark)
+
+Besides Gemini, Visualizer can use Meta's Muse Spark as its video eyes:
+`skills/va/scripts/meta_watch.sh <url-or-file> <prompt> [model]` sends a
+video URL as `input_video` (or uploads a local .mp4 via the Files API)
+to the Responses API at `https://api.meta.ai/v1` with model
+`muse-spark-1.3`. Set `MODEL_API_KEY` (from https://dev.meta.ai/) in
+the environment or in `~/.config/va/env`. The Gemini path is unchanged
+and remains the default.
